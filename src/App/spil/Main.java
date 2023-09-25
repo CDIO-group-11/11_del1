@@ -50,4 +50,7 @@ public class Main {
     }
     System.out.println("/40");
   }
+  public static RaffleCup getCup() {
+    return cup;
+  }
 }
