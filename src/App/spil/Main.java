@@ -21,6 +21,7 @@ public class Main {
         player2 += cup.getSides()[0];
         player2 += cup.getSides()[1];
       }
+      //TODO lav check her
       printSide();
       printPoint();
       if((currentPlayer ? player1 : player2) >= 40){
