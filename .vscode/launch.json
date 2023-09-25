@@ -8,8 +8,12 @@
       "type": "java",
       "name": "Initialize",
       "request": "launch",
-      "mainClass": "App.Initialize",
-      "projectName": "CDIO1_8cbef84a"
+      "mainClass": "App.test.Test",
+    },{
+      "type": "java",
+      "name": "Initialize",
+      "request": "launch",
+      "mainClass": "App.spil.Main",
     }
   ]
 }
