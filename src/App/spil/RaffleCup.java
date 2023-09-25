@@ -8,4 +8,9 @@ public class RaffleCup {
       die[i] = new Dice(diceSideCount);
     }
   }
+  public void roll(){
+    for (int i = 0; i < die.length; i++) {
+      die[i].roll();
+    }
+  }
 }
