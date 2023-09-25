@@ -6,12 +6,12 @@
   "configurations": [
     {
       "type": "java",
-      "name": "Initialize",
+      "name": "test",
       "request": "launch",
       "mainClass": "App.test.Test",
     },{
       "type": "java",
-      "name": "Initialize",
+      "name": "play",
       "request": "launch",
       "mainClass": "App.spil.Main",
     }
