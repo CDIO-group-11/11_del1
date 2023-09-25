@@ -23,6 +23,10 @@ public class Main {
       }
       printSide();
       printPoint();
+      if((currentPlayer ? player1 : player2) >= 40){
+        System.out.println("player " + (currentPlayer ? "1" : "2") + " wins!");
+        break;
+      }
       currentPlayer = !currentPlayer;
     }
   }
