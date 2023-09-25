@@ -9,4 +9,7 @@ public class Dice {
   public void roll(){
     activeSide = (int)(Math.random() * (sides)) + 1;
   }
+  public int getSide(){
+    return activeSide;
+  }
 }
