@@ -1,8 +1,8 @@
 package App.spil;
 
 public class Dice {
-  int sides;
-  int activeSide = 1;
+  private int sides;
+  private int activeSide = 1;
   public Dice(int sides){
     this.sides = sides;
   }
