@@ -22,6 +22,6 @@ public class Test {
       deviation += Math.pow(sides[i]-mean,2);
     }
     deviation = Math.sqrt(deviation*1d/(double)sides.length);
-    System.out.println(deviation);
+    System.out.println("deviation: " +deviation+ "\nmean: " + mean + "\nsides:\n\t1: " + sides[0] + "\n\t2: " + sides[1] + "\n\t3: " + sides[2] + "\n\t4: " + sides[3] + "\n\t5: " + sides[4] + "\n\t6: " + sides[5]);
   }
 }
