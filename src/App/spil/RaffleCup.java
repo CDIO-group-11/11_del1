@@ -13,4 +13,11 @@ public class RaffleCup {
       die[i].roll();
     }
   }
+  public int[] getSides(){
+    int[] sides = new int[die.length];
+    for (int i = 0; i < sides.length; i++) {
+      sides[i] = die[i].getSide();
+    }
+    return sides;
+  } 
 }
