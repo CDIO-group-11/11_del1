@@ -27,6 +27,7 @@ public class Main {
         System.out.println("player " + (currentPlayer ? "1" : "2") + " wins!");
         break;
       }
+      if(cup.getSides()[0] != cup.getSides()[1])
       currentPlayer = !currentPlayer;
     }
   }
