@@ -53,9 +53,9 @@ public class Main {
           p2=true;
         }
       }
-      if(cup.getSides()[0] != cup.getSides()[1])
+      if(cup.getSides()[0] != cup.getSides()[1]) {
       currentPlayer = !currentPlayer;
-      
+      }
       if (cup.getSides()[0] == 6 && cup.getSides()[1] == 6){
         if (last_roll_2x6 == 1) {
           System.out.println("player " + currentPlayer + " wins!");
