@@ -10,8 +10,13 @@ public class Main {
   private static RaffleCup cup = new RaffleCup(2,6);
   private static boolean currentPlayer = true;//true == 1
   public static void main(String[] args) {
+    System.out.print("\033[H\033[2J");
+    System.out.flush();
+    System.out.println("to Roll the Dice type:\"" + ROLL_COMMAND + "\"");
+    System.out.println("\n\n\n\n\n\n\n\n");
     while(true){
-      System.out.println(currentPlayer ? "player 1:" : "player 2:");
+      System.out.println("\r\033[9Acurrent player: " + (currentPlayer ? "1" : "2"));
+      System.out.print("        \r");
       awaitRoll();
       cup.roll();
       if(currentPlayer){
@@ -21,6 +26,7 @@ public class Main {
         player2 += cup.getSides()[0];
         player2 += cup.getSides()[1];
       }
+
       RaffleCup cup = Main.getCup();
       int Die1 = cup.getSides()[0];
       int Die2 = cup.getSides()[1];
@@ -32,10 +38,7 @@ public class Main {
           player2 = 0;
         }
       }
-
-
-      printSide();
-      printPoint();
+      prettyPrint();
       if((currentPlayer ? player1 : player2) >= 40){
         System.out.println("player " + (currentPlayer ? "1" : "2") + " wins!");
         break;
@@ -46,26 +49,33 @@ public class Main {
   }
   private static void awaitRoll(){
     while (true){
-      if(scan.nextLine().equals(ROLL_COMMAND)){
+      String in = scan.nextLine();
+      if(in.equals(ROLL_COMMAND)){
         return;
       }else{
-        printPoint();
-        currentPlayer = !currentPlayer;
-        printPoint();
-        currentPlayer = !currentPlayer;
+        System.out.print("\033[1A" + " ".repeat(in.length()) + "\r");
       }
     }
   }
-  private static void printSide() {
-    System.out.println(cup.getSides()[0] +" " +cup.getSides()[1]);
+  private static void prettyPrint(){
+    System.out.println(reset() + "Player " + g() + (currentPlayer ? 1 : 2) + reset() + " (" + b() + (currentPlayer ? player1 : player2) + "/40 " + p() + "point" + reset() + ")");
+    System.out.println(reset() + "Player " + g() +(!currentPlayer ? 1 : 2) + reset() + " (" + b() +(!currentPlayer ? player1 : player2) + "/40 " + p() + "point" + reset() + ")\n");
+    System.out.println("Roll:");
+    System.out.println("Dice " + b() + "1" + p() +":  " + g() + cup.getSides()[0] + reset());
+    System.out.println("Dice " + b() + "2" + p() +":  " + g() + cup.getSides()[1] + reset());
+    System.out.println("Sum of Dice: " + g() + (cup.getSides()[0] + cup.getSides()[1]) + reset());
   }
-  private static void printPoint(){
-    if(currentPlayer){
-      System.out.print("player 1 points: " + player1);
-    }else{
-      System.out.print("player 2 points: " + player2);
-    }
-    System.out.println("/40");
+  private static String g(){
+    return "\u001b[32m";
+  }
+  private static String reset(){
+    return "\u001b[0m";
+  }
+  private static String b(){
+    return "\u001b[34m";
+  }
+  private static String p(){
+    return "\u001b[35m";
   }
   public static RaffleCup getCup() {
     return cup;
