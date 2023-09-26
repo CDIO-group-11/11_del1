@@ -16,7 +16,7 @@ public class Main {
     System.out.println("to Roll the Dice type:\"" + ROLL_COMMAND + "\"");
     System.out.println("\n\n\n\n\n\n\n\n\n");
     while(true){
-      System.out.println("\r\033[8Acurrent player: " + g() +(currentPlayer ? "1" : "2") + reset());
+      System.out.println("\r" + lineUp(8) + "current player: " + g() +(currentPlayer ? "1" : "2") + reset());
       awaitRoll();
       System.out.println();
       cup.roll();
@@ -58,11 +58,9 @@ public class Main {
   private static void awaitRoll(){
     while (true){
       String in = scan.nextLine();
+      System.out.print(lineUp(1) + " ".repeat(in.length()) + "\r");
       if(in.equals(ROLL_COMMAND)){
-        System.out.print("\033[1A" + " ".repeat(in.length()) + "\r");
         return;
-      }else{
-        System.out.print("\033[1A" + " ".repeat(in.length()) + "\r");
       }
     }
   }
@@ -107,5 +105,9 @@ public class Main {
   }
   public static RaffleCup getCup() {
     return cup;
+  }
+  public static String lineUp(int count){
+    System.out.print("\033[" + count + "A\r");
+    return "";
   }
 }
