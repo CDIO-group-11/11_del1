@@ -57,6 +57,7 @@ public class Main {
   }
   private static void awaitRoll(){
     while (true){
+      System.out.print("enter command: ");
       String in = scan.nextLine();
       System.out.print(lineUp(1) + " ".repeat(in.length()) + "\r");
       if(in.equals(ROLL_COMMAND)){
@@ -65,16 +66,16 @@ public class Main {
     }
   }
   private static void prettyPrint(){
-    System.out.print(reset());
+    System.out.println(reset());
     if(!p1 && player1 < 40){
-      System.out.println("Player " + g("1:") + " (" + b(player1 + "/40 ") + p("point") + ") ");
+      System.out.println("Player " + g("1:") + " (" + b((player1<10 ? "0" + player1 : player1) + "/40 ") + p("point") + ") " + r(currentPlayer ? " <-" : "   "));
     }else{
-      System.out.println("Player " + g("1:") + " (" + b("40/40") + ")" + p(" Ready to WIN!"));
+      System.out.println("Player " + g("1:") + " (" + b("40/40") + ")" + p(" Ready to WIN!") + r(currentPlayer ? " <-" : "   "));
     }
     if(!p2 && player2 < 40){
-      System.out.println("Player " + g("2:") + " (" + b(player2 + "/40 ") + p("point") + ") ");
+      System.out.println("Player " + g("2:") + " (" + b((player2<10 ? "0" + player2 : player2) + "/40 ") + p("point") + ") " + r(currentPlayer ? "   " : " <-"));
     }else{
-      System.out.println("Player " + g("2:") + " (" + b("40/40") + ")" + p(" Ready to WIN!"));
+      System.out.println("Player " + g("2:") + " (" + b("40/40") + ")" + p(" Ready to WIN!" + r(currentPlayer ? "   " : " <-")));
     }
     System.out.println("Rolls:");
     System.out.println("  Die " + g("1:  ") + b("" + cup.getSides()[0]));
@@ -102,6 +103,12 @@ public class Main {
   }
   private static String p(){
     return "\u001b[35m";
+  }
+  private static String r(String text){
+    return r() + text + reset();
+  }
+  private static String r(){
+    return "\u001b[31m";
   }
   public static RaffleCup getCup() {
     return cup;
