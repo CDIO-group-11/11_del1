@@ -76,9 +76,9 @@ public class Main {
     }else{
       System.out.println("Player " + g("2:") + " (" + b("40/40") + ")" + p(" Ready to WIN!"));
     }
-    System.out.println("Roll:");
-    System.out.println("Die " + g("1:  ") + b("" + cup.getSides()[0]));
-    System.out.println("Die " + g("2:  ") + b("" + cup.getSides()[1]));
+    System.out.println("Rolls:");
+    System.out.println("  Die " + g("1:  ") + b("" + cup.getSides()[0]));
+    System.out.println("  Die " + g("2:  ") + b("" + cup.getSides()[1]));
     int sum = cup.getSides()[0] + cup.getSides()[1];
     System.out.println("Sum of Dice: " + b(sum + " "));
   }
