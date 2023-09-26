@@ -20,6 +20,7 @@ public class Main {
       System.out.print("        \r");
       awaitRoll();
       cup.roll();
+      //adds dice to points
       if(currentPlayer){
         player1 += cup.getSides()[0];
         player1 += cup.getSides()[1];
@@ -27,23 +28,25 @@ public class Main {
         player2 += cup.getSides()[0];
         player2 += cup.getSides()[1];
       }
-
-      RaffleCup cup = Main.getCup();
-      int Die1 = cup.getSides()[0];
-      int Die2 = cup.getSides()[1];
       
-      if (Die1 == 1 && Die2 == 1){
+      //see if player rolled 2x one
+      if (cup.getSides()[0] == 1 && cup.getSides()[1] == 1){
         if(currentPlayer){
           player1 = 0;
         }else{
           player2 = 0;
         }
       }
-      prettyPrint();
-      if((currentPlayer ? p1 : p2) && Die1 == Die2 ){
+      prettyPrint(); //prints score card
+
+      //win condition 
+      //must have reached 40 and to equakl dice
+      if((currentPlayer ? p1 : p2) && cup.getSides()[0] == cup.getSides()[1] ){
         System.out.println("player " + (currentPlayer ? "1" : "2") + " wins!");
         break;
       }
+
+      //allow victory by recording if score is at least 40
       if((currentPlayer ? player1 : player2) >= 40){
         if(currentPlayer){
           p1=true;
@@ -51,6 +54,9 @@ public class Main {
           p2=true;
         }
       }
+
+      //decide if player gets another turn 
+      //if dice not equal
       if(cup.getSides()[0] != cup.getSides()[1])
       currentPlayer = !currentPlayer;
     }
