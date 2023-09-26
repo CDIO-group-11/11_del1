@@ -10,6 +10,7 @@ public class Main {
   private static RaffleCup cup = new RaffleCup(2,6);
   private static boolean currentPlayer = true;//true == 1
   private static boolean p1,p2;
+  private static int last_roll_2x6 = 0; //0 = last roll not two six, 1= last roll two six
   public static void main(String[] args) {
     System.out.print("\033[H\033[2J");
     System.out.flush();
@@ -53,6 +54,17 @@ public class Main {
       }
       if(cup.getSides()[0] != cup.getSides()[1])
       currentPlayer = !currentPlayer;
+      
+      if (cup.getSides()[0] == 6 && cup.getSides()[1] == 6){
+        if (last_roll_2x6 == 1) {
+          System.out.println("player " + currentPlayer + " wins!");
+          break;            
+        }
+          last_roll_2x6 = 1;
+      }
+      else {
+        last_roll_2x6 = 0;
+      }
     }
   }
   private static void awaitRoll(){
