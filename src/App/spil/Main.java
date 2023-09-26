@@ -10,7 +10,10 @@ public class Main {
   private static RaffleCup cup = new RaffleCup(2,6);
   private static boolean currentPlayer = true;//true == 1
   public static void main(String[] args) {
-    System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    System.out.print("\033[H\033[2J");
+    System.out.flush();
+    System.out.println("to Roll the Dice type:\"" + ROLL_COMMAND + "\"");
+    System.out.println("\n\n\n\n\n\n\n\n");
     while(true){
       System.out.println("\r\033[9Acurrent player: " + (currentPlayer ? "1" : "2"));
       System.out.print("        \r");
@@ -42,11 +45,23 @@ public class Main {
     }
   }
   private static void prettyPrint(){
-    System.out.println("\u001b[0mPlayer \u001b[32m" + (currentPlayer ? 1 : 2) + " \u001b[0m(\u001b[34m" + (currentPlayer ? player1 : player2) + "/40 \u001b[35mpoint\u001b[0m)");
-    System.out.println("\u001b[0mPlayer \u001b[32m" + (!currentPlayer ? 1 : 2) + " \u001b[0m(\u001b[34m" + (!currentPlayer ? player1 : player2) + "/40 \u001b[35mpoint\u001b[0m)\n");
+    System.out.println(reset() + "Player " + g() + (currentPlayer ? 1 : 2) + reset() + " (" + b() + (currentPlayer ? player1 : player2) + "/40 " + p() + "point" + reset() + ")");
+    System.out.println(reset() + "Player " + g() +(!currentPlayer ? 1 : 2) + reset() + " (" + b() +(!currentPlayer ? player1 : player2) + "/40 " + p() + "point" + reset() + ")\n");
     System.out.println("Roll:");
-    System.out.println("Dice \u001b[34m1\u001b[35m:\u001b[32m " + cup.getSides()[0] + "\u001b[0m");
-    System.out.println("Dice \u001b[34m2\u001b[35m:\u001b[32m " + cup.getSides()[1] + "\u001b[0m");
-    System.out.println("Sum of Dice: \u001b[32m" + (cup.getSides()[0] + cup.getSides()[1]) + "\u001b[0m");
+    System.out.println("Dice " + b() + "1" + p() +":  " + g() + cup.getSides()[0] + reset());
+    System.out.println("Dice " + b() + "2" + p() +":  " + g() + cup.getSides()[1] + reset());
+    System.out.println("Sum of Dice: " + g() + (cup.getSides()[0] + cup.getSides()[1]) + reset());
+  }
+  private static String g(){
+    return "\u001b[32m";
+  }
+  private static String reset(){
+    return "\u001b[0m";
+  }
+  private static String b(){
+    return "\u001b[34m";
+  }
+  private static String p(){
+    return "\u001b[35m";
   }
 }
