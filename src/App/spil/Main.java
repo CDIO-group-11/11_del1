@@ -16,9 +16,9 @@ public class Main {
     System.out.println("to Roll the Dice type:\"" + ROLL_COMMAND + "\"");
     System.out.println("\n\n\n\n\n\n\n\n\n");
     while(true){
-      System.out.println("\r" + lineUp(8) + "current player: " + g() +(currentPlayer ? "1" : "2") + reset());
+      lineUp(8);
+      System.out.println("current player: " + g() +(currentPlayer ? "1" : "2") + reset());
       awaitRoll();
-      System.out.println();
       cup.roll();
       if(currentPlayer){
         player1 += cup.getSides()[0];
@@ -59,7 +59,8 @@ public class Main {
     while (true){
       System.out.print("enter command: ");
       String in = scan.nextLine();
-      System.out.print(lineUp(1) + " ".repeat(in.length()) + "\r");
+      lineUp(1);
+      System.out.print(" ".repeat(in.length()) + "\r");
       if(in.equals(ROLL_COMMAND)){
         return;
       }
@@ -114,7 +115,7 @@ public class Main {
     return cup;
   }
   public static String lineUp(int count){
-    System.out.print("\033[" + count + "A\r");
+    System.out.print("\r\033[" + count + "A\r");
     return "";
   }
 }
