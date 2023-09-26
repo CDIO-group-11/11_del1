@@ -5,6 +5,9 @@ import App.spil.RaffleCup;
 public class Test {
   private static RaffleCup cup = new RaffleCup(2, 6); 
   public static void main(String[] args) {
+    isFair();
+  }
+  private static void isFair() {
     int[] sides = new int[6];
     for (int i = 0; i < 1000; i++) {
       cup.roll();
@@ -22,6 +25,18 @@ public class Test {
       deviation += Math.pow(sides[i]-mean,2);
     }
     deviation = Math.sqrt(deviation*1d/(double)sides.length);
-    System.out.println("deviation: " +deviation+ "\nmean: " + mean + "\nsides:\n\t1: " + sides[0] + "\n\t2: " + sides[1] + "\n\t3: " + sides[2] + "\n\t4: " + sides[3] + "\n\t5: " + sides[4] + "\n\t6: " + sides[5]);
+    if(deviation < 20 && mean < 340 && mean > 320){
+      pass("dice fairness");
+    }else{
+      fail("dice fairnes");
+    }
+  }
+  private static void pass(String test){
+    System.out.println(test);
+    System.out.println(" \u001b[32mPASSED\u001b[0m");
+  }
+  private static void fail(String test){
+    System.out.println(test);
+    System.out.println(" \u001b[31mFAILLED\u001b[0m");
   }
 }
