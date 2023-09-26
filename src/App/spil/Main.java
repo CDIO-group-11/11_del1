@@ -14,10 +14,9 @@ public class Main {
     System.out.print("\033[H\033[2J");
     System.out.flush();
     System.out.println("to Roll the Dice type:\"" + ROLL_COMMAND + "\"");
-    System.out.println("\n\n\n\n\n\n\n\n");
+    System.out.println("\n\n\n\n\n\n\n\n\n");
     while(true){
       System.out.println("\r\033[9Acurrent player: " + g() +(currentPlayer ? "1" : "2") + reset());
-      System.out.print("        \r");
       awaitRoll();
       cup.roll();
       if(currentPlayer){
@@ -59,6 +58,7 @@ public class Main {
     while (true){
       String in = scan.nextLine();
       if(in.equals(ROLL_COMMAND)){
+        System.out.print("\033[1A" + " ".repeat(in.length()) + "\r");
         return;
       }else{
         System.out.print("\033[1A" + " ".repeat(in.length()) + "\r");
@@ -66,8 +66,16 @@ public class Main {
     }
   }
   private static void prettyPrint(){
-    System.out.println(reset() + "Player " + g() + 1 + reset() + " (" + b() + player1 + "/40 " + p() + "point" + reset() + ")");
-    System.out.println(reset() + "Player " + g() + 2 + reset() + " (" + b() + player2 + "/40 " + p() + "point" + reset() + ")\n");
+    if(!p1 && player1 < 40){
+      System.out.println(reset() + "Player " + g() + 1 + reset() + " (" + b() + player1 + "/40 " + p() + "point" + reset() + ") ");
+    }else{
+      System.out.println(reset() + "Player " + g() + 1 + reset() + " (" + b() + "40/40" + reset() + ")" + b() + " Ready to WIN!");
+    }
+    if(!p2 && player2 < 40){
+      System.out.println(reset() + "Player " + g() + 2 + reset() + " (" + b() + player2 + "/40 " + p() + "point" + reset() + ") ");
+    }else{
+      System.out.println(reset() + "Player " + g() + 2 + reset() + " (" + b() + "40/40" + reset() + ")" + b() + " Ready to WIN!");
+    }
     System.out.println("Roll:");
     System.out.println("Dice " + b() + "1" + p() +":  " + g() + cup.getSides()[0] + reset());
     System.out.println("Dice " + b() + "2" + p() +":  " + g() + cup.getSides()[1] + reset());
