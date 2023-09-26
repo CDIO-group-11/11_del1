@@ -3,7 +3,7 @@ package App.spil;
 import java.util.Scanner;
 
 public class Main {
-  final private static String ROLL_COMMAND = "ROLL";
+  final private static String ROLL_COMMAND = "";
   private static Scanner scan = new Scanner(System.in);
   private static int player1 = 0;
   private static int player2 = 0;
@@ -15,7 +15,7 @@ public class Main {
     System.out.println("to Roll the Dice type:\"" + ROLL_COMMAND + "\"");
     System.out.println("\n\n\n\n\n\n\n\n");
     while(true){
-      System.out.println("\r\033[9Acurrent player: " + (currentPlayer ? "1" : "2"));
+      System.out.println("\r\033[9Acurrent player: " + g() +(currentPlayer ? "1" : "2") + reset());
       System.out.print("        \r");
       awaitRoll();
       cup.roll();
@@ -45,12 +45,13 @@ public class Main {
     }
   }
   private static void prettyPrint(){
-    System.out.println(reset() + "Player " + g() + (currentPlayer ? 1 : 2) + reset() + " (" + b() + (currentPlayer ? player1 : player2) + "/40 " + p() + "point" + reset() + ")");
-    System.out.println(reset() + "Player " + g() +(!currentPlayer ? 1 : 2) + reset() + " (" + b() +(!currentPlayer ? player1 : player2) + "/40 " + p() + "point" + reset() + ")\n");
+    System.out.println(reset() + "Player " + g() + 1 + reset() + " (" + b() + player1 + "/40 " + p() + "point" + reset() + ")");
+    System.out.println(reset() + "Player " + g() + 2 + reset() + " (" + b() + player2 + "/40 " + p() + "point" + reset() + ")\n");
     System.out.println("Roll:");
     System.out.println("Dice " + b() + "1" + p() +":  " + g() + cup.getSides()[0] + reset());
     System.out.println("Dice " + b() + "2" + p() +":  " + g() + cup.getSides()[1] + reset());
-    System.out.println("Sum of Dice: " + g() + (cup.getSides()[0] + cup.getSides()[1]) + reset());
+    int sum = cup.getSides()[0] + cup.getSides()[1];
+    System.out.println("Sum of Dice: " + g() + sum + reset() + " ");
   }
   private static String g(){
     return "\u001b[32m";
