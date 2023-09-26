@@ -16,8 +16,9 @@ public class Main {
     System.out.println("to Roll the Dice type:\"" + ROLL_COMMAND + "\"");
     System.out.println("\n\n\n\n\n\n\n\n\n");
     while(true){
-      System.out.println("\r\033[9Acurrent player: " + g() +(currentPlayer ? "1" : "2") + reset());
+      System.out.println("\r\033[8Acurrent player: " + g() +(currentPlayer ? "1" : "2") + reset());
       awaitRoll();
+      System.out.println();
       cup.roll();
       if(currentPlayer){
         player1 += cup.getSides()[0];
