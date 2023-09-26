@@ -9,6 +9,7 @@ public class Main {
   private static int player2 = 0;
   private static RaffleCup cup = new RaffleCup(2,6);
   private static boolean currentPlayer = true;//true == 1
+  private static boolean p1,p2;
   public static void main(String[] args) {
     System.out.print("\033[H\033[2J");
     System.out.flush();
@@ -39,9 +40,16 @@ public class Main {
         }
       }
       prettyPrint();
-      if((currentPlayer ? player1 : player2) >= 40){
+      if((currentPlayer ? p1 : p2) && Die1 == Die2 ){
         System.out.println("player " + (currentPlayer ? "1" : "2") + " wins!");
         break;
+      }
+      if((currentPlayer ? player1 : player2) >= 40){
+        if(currentPlayer){
+          p1=true;
+        }else {
+          p2=true;
+        }
       }
       if(cup.getSides()[0] != cup.getSides()[1])
       currentPlayer = !currentPlayer;
