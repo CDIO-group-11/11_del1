@@ -21,7 +21,19 @@ public class Main {
         player2 += cup.getSides()[0];
         player2 += cup.getSides()[1];
       }
-      //TODO lav check her
+      RaffleCup cup = Main.getCup();
+      int Die1 = cup.getSides()[0];
+      int Die2 = cup.getSides()[1];
+      
+      if (Die1 == 1 && Die2 == 1){
+        if(currentPlayer){
+          player1 = 0;
+        }else{
+          player2 = 0;
+        }
+      }
+
+
       printSide();
       printPoint();
       if((currentPlayer ? player1 : player2) >= 40){
