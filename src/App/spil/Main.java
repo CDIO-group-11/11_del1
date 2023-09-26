@@ -78,8 +78,8 @@ public class Main {
       System.out.println("Player " + g("2") + " (" + b() + ")" + b(" Ready to WIN!"));
     }
     System.out.println("Roll:");
-    System.out.println("Dice " + b() + "1" + p() +":  " + g() + cup.getSides()[0] + reset());
-    System.out.println("Dice " + b() + "2" + p() +":  " + g() + cup.getSides()[1] + reset());
+    System.out.println("Die " + b() + "1" + p() +":  " + g() + cup.getSides()[0] + reset());
+    System.out.println("Die " + b() + "2" + p() +":  " + g() + cup.getSides()[1] + reset());
     int sum = cup.getSides()[0] + cup.getSides()[1];
     System.out.println("Sum of Dice: " + g() + sum + reset() + " ");
   }
