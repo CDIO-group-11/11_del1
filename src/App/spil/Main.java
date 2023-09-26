@@ -3,7 +3,8 @@ package App.spil;
 import java.util.Scanner;
 
 public class Main {
-  final private static String ROLL_COMMAND = "";
+  final private static String ROLL_COMMAND = "roll";
+  final private static String EXIT_COMMAND = "exit";
   private static Scanner scan = new Scanner(System.in);
   private static int player1 = 0;
   private static int player2 = 0;
@@ -14,7 +15,7 @@ public class Main {
     System.out.print("\033[H\033[2J");
     System.out.flush();
     System.out.println("to Roll the Dice type:\"" + ROLL_COMMAND + "\"");
-    System.out.println("\n\n\n\n\n\n\n\n");
+    System.out.println("\n".repeat(8));
     while(true){
       System.out.println("\r\033[9Acurrent player: " + g() +(currentPlayer ? "1" : "2") + reset());
       System.out.print("        \r");
@@ -60,6 +61,9 @@ public class Main {
       String in = scan.nextLine();
       if(in.equals(ROLL_COMMAND)){
         return;
+      }else if(in.equals(EXIT_COMMAND)){
+        System.out.println("\n".repeat(10));
+        System.exit(0);
       }else{
         System.out.print("\033[1A" + " ".repeat(in.length()) + "\r");
       }
