@@ -26,11 +26,24 @@ public class Main {
         player2 += cup.getSides()[0];
         player2 += cup.getSides()[1];
       }
+
+      RaffleCup cup = Main.getCup();
+      int Die1 = cup.getSides()[0];
+      int Die2 = cup.getSides()[1];
+      
+      if (Die1 == 1 && Die2 == 1){
+        if(currentPlayer){
+          player1 = 0;
+        }else{
+          player2 = 0;
+        }
+      }
       prettyPrint();
       if((currentPlayer ? player1 : player2) >= 40){
         System.out.println("player " + (currentPlayer ? "1" : "2") + " wins!");
         break;
       }
+      if(cup.getSides()[0] != cup.getSides()[1])
       currentPlayer = !currentPlayer;
     }
   }
@@ -64,5 +77,8 @@ public class Main {
   }
   private static String p(){
     return "\u001b[35m";
+  }
+  public static RaffleCup getCup() {
+    return cup;
   }
 }
