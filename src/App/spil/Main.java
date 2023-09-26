@@ -66,15 +66,16 @@ public class Main {
     }
   }
   private static void prettyPrint(){
+    System.out.print(reset());
     if(!p1 && player1 < 40){
-      System.out.println(reset() + "Player " + g() + 1 + reset() + " (" + b() + player1 + "/40 " + p() + "point" + reset() + ") ");
+      System.out.println("Player " + g("1") + " (" + b(player1 + "/40 ") + p("point") + ") ");
     }else{
-      System.out.println(reset() + "Player " + g() + 1 + reset() + " (" + b() + "40/40" + reset() + ")" + b() + " Ready to WIN!");
+      System.out.println("Player " + g("1") + " (" + b() + ")" + b(" Ready to WIN!"));
     }
     if(!p2 && player2 < 40){
-      System.out.println(reset() + "Player " + g() + 2 + reset() + " (" + b() + player2 + "/40 " + p() + "point" + reset() + ") ");
+      System.out.println("Player " + g("2") + " (" + b(player2 + "/40 ") + p("point") + ") ");
     }else{
-      System.out.println(reset() + "Player " + g() + 2 + reset() + " (" + b() + "40/40" + reset() + ")" + b() + " Ready to WIN!");
+      System.out.println("Player " + g("2") + " (" + b() + ")" + b(" Ready to WIN!"));
     }
     System.out.println("Roll:");
     System.out.println("Dice " + b() + "1" + p() +":  " + g() + cup.getSides()[0] + reset());
@@ -82,14 +83,23 @@ public class Main {
     int sum = cup.getSides()[0] + cup.getSides()[1];
     System.out.println("Sum of Dice: " + g() + sum + reset() + " ");
   }
+  private static String g(String text){
+    return g() + text + reset();
+  }
   private static String g(){
     return "\u001b[32m";
   }
   private static String reset(){
     return "\u001b[0m";
   }
+    private static String b(String text){
+    return b() + text + reset();
+  }
   private static String b(){
     return "\u001b[34m";
+  }
+  private static String p(String text){
+    return p() + text + reset();
   }
   private static String p(){
     return "\u001b[35m";
