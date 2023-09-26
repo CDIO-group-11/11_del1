@@ -13,8 +13,8 @@ public class Main {
   public static void main(String[] args) {
     System.out.print("\033[H\033[2J");
     System.out.flush();
-    System.out.println("to Roll the Dice type:\"" + ROLL_COMMAND + "\"");
-    System.out.println("\n\n\n\n\n\n\n\n\n");
+    System.out.println("to Roll the Dice type:\"" + ROLL_COMMAND + "\"\n");
+    prettyPrint();
     while(true){
       lineUp(8);
       System.out.println("current player: " + g() +(currentPlayer ? "1" : "2") + reset());
@@ -79,10 +79,10 @@ public class Main {
       System.out.println("Player " + g("2:") + " (" + b("40/40") + ")" + p(" Ready to WIN!" + r(currentPlayer ? "   " : " <-")));
     }
     System.out.println("Rolls:");
-    System.out.println("  Die " + g("1:  ") + b("" + cup.getSides()[0]));
-    System.out.println("  Die " + g("2:  ") + b("" + cup.getSides()[1]));
+    System.out.println("  Die " + g("1:  ") + b((cup.getSides()[0] > 0 ? "" + cup.getSides()[0] : "")));
+    System.out.println("  Die " + g("2:  ") + b((cup.getSides()[0] > 0 ? "" + cup.getSides()[1] : "")));
     int sum = cup.getSides()[0] + cup.getSides()[1];
-    System.out.println("Sum of Dice: " + b(sum + " "));
+    System.out.println("Sum of Dice: " + b((sum > 0 ? sum + " " : "")));
   }
   private static String g(String text){
     return g() + text + reset();
