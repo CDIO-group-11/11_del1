@@ -40,7 +40,7 @@ public class Main {
       }
       prettyPrint();
       if((currentPlayer ? p1 : p2) && Die1 == Die2 ){
-        System.out.println("player " + (currentPlayer ? "1" : "2") + " wins!");
+        System.out.println("player " + g(currentPlayer ? "1" : "2") + p(" wins!"));
         break;
       }
       if((currentPlayer ? player1 : player2) >= 40){
@@ -68,20 +68,20 @@ public class Main {
   private static void prettyPrint(){
     System.out.print(reset());
     if(!p1 && player1 < 40){
-      System.out.println("Player " + g("1") + " (" + b(player1 + "/40 ") + p("point") + ") ");
+      System.out.println("Player " + g("1:") + " (" + b(player1 + "/40 ") + p("point") + ") ");
     }else{
-      System.out.println("Player " + g("1") + " (" + b() + ")" + b(" Ready to WIN!"));
+      System.out.println("Player " + g("1:") + " (" + b("40/40") + ")" + p(" Ready to WIN!"));
     }
     if(!p2 && player2 < 40){
-      System.out.println("Player " + g("2") + " (" + b(player2 + "/40 ") + p("point") + ") ");
+      System.out.println("Player " + g("2:") + " (" + b(player2 + "/40 ") + p("point") + ") ");
     }else{
-      System.out.println("Player " + g("2") + " (" + b() + ")" + b(" Ready to WIN!"));
+      System.out.println("Player " + g("2:") + " (" + b("40/40") + ")" + p(" Ready to WIN!"));
     }
     System.out.println("Roll:");
-    System.out.println("Die " + b() + "1" + p() +":  " + g() + cup.getSides()[0] + reset());
-    System.out.println("Die " + b() + "2" + p() +":  " + g() + cup.getSides()[1] + reset());
+    System.out.println("Die " + g("1:  ") + b("" + cup.getSides()[0]));
+    System.out.println("Die " + g("2:  ") + b("" + cup.getSides()[1]));
     int sum = cup.getSides()[0] + cup.getSides()[1];
-    System.out.println("Sum of Dice: " + g() + sum + reset() + " ");
+    System.out.println("Sum of Dice: " + b(sum + " "));
   }
   private static String g(String text){
     return g() + text + reset();
