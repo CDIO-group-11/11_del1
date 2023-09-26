@@ -28,22 +28,26 @@ public class Main {
         System.out.println("player " + (currentPlayer ? "1" : "2") + " wins!");
         break;
       }
+      if(cup.getSides()[0] != cup.getSides()[1])
       currentPlayer = !currentPlayer;
     }
   }
-  public static void awaitRoll(){
+  private static void awaitRoll(){
     while (true){
       if(scan.nextLine().equals(ROLL_COMMAND)){
         return;
       }else{
         printPoint();
+        currentPlayer = !currentPlayer;
+        printPoint();
+        currentPlayer = !currentPlayer;
       }
     }
   }
   private static void printSide() {
     System.out.println(cup.getSides()[0] +" " +cup.getSides()[1]);
   }
-  public static void printPoint(){
+  private static void printPoint(){
     if(currentPlayer){
       System.out.print("player 1 points: " + player1);
     }else{
