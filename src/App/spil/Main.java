@@ -147,9 +147,13 @@ public class Main {
       lineUp(11);
       for (int i = 0; i < TUI[0].length; i++) {
         for (int j = 0; j < TUI.length; j++) {
+          if(Math.random() < 0.04) try {
+            Thread.sleep(0,1);
+          } catch (InterruptedException ignore) {}
+          
           boolean run = Math.random() < (float)turn/1000f;
           if(TUI[j][i] != 32 && run){
-            if(Math.random() < (float)turn/4000f){
+            if(Math.random() < (float)turn/2000f){
               TUI[j][i] = 32;
             }else{
               TUI[j][i] = randChar();
@@ -167,7 +171,7 @@ public class Main {
         System.out.println();
       }
       turn++;
-      if(space > (TUI.length * TUI[0].length * 0.98)){
+      if(space > (TUI.length * TUI[0].length * (372f/374f))){
         break;
       }
     }
