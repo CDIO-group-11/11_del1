@@ -54,6 +54,8 @@ public class Main {
       if(cup.getSides()[0] != cup.getSides()[1])
       currentPlayer = !currentPlayer;
     }
+    finish();
+    System.out.println("player " + g(currentPlayer ? "1" : "2") + p(" wins!"));
   }
   private static void awaitRoll(){
     while (true){
@@ -114,8 +116,88 @@ public class Main {
   public static RaffleCup getCup() {
     return cup;
   }
+  private static String c(String text){
+    return c() + text + reset();
+  }
+  private static String c(){
+    return "\u001b[36m";
+  }
+  private static String y(String text){
+    return y() + text + reset();
+  }
+  private static String y(){
+    return "\u001b[38;5;220m";
+  }
   public static String lineUp(int count){
     System.out.print("\r\033[" + count + "A\r");
     return "";
+  }
+  private static void finish(){
+    int max;
+    {
+      int staticMax = 34;
+      int changeMax = 24 + ROLL_COMMAND.length();
+      max = Math.max(staticMax,changeMax);
+    }
+    char[][] TUI = new char[max][11];
+    int turn = 0;
+    int space;
+    while(true){
+      space = 0;
+      lineUp(11);
+      for (int i = 0; i < TUI[0].length; i++) {
+        for (int j = 0; j < TUI.length; j++) {
+          boolean run = Math.random() < (float)turn/1000f;
+          if(TUI[j][i] != 32 && run){
+            if(Math.random() < (float)turn/4000f){
+              TUI[j][i] = 32;
+            }else{
+              TUI[j][i] = randChar();
+            }
+          }
+          if(run){
+            System.out.print(randCol(TUI[j][i]+""));
+          }else{
+            System.out.print("\033[1C");
+          }
+          if(TUI[j][i] == 32){
+            space++;
+          }
+        }
+        System.out.println();
+      }
+      turn++;
+      if(space > (TUI.length * TUI[0].length * 0.98)){
+        break;
+      }
+    }
+    lineUp(11);
+    for (int i = 0; i < TUI[0].length; i++) {
+      for (int j = 0; j < TUI.length; j++) {
+        System.out.print(" ");
+      }
+      System.out.println();
+    }
+  }
+  private static char randChar(){
+    return (char) ((Math.random() * 95) + 32);
+  }
+  private static String randCol(String text){
+    switch((int)(Math.random()*15)){
+      case 0:
+      return r(text);
+      case 1:
+      return g(text);
+      case 2:
+      return b(text);
+      case 3:
+      return p(text);
+      case 4:
+      return c(text);//cyan
+      case 5:
+      return y(text);
+      default:
+      return text;
+    }
   }
 }
