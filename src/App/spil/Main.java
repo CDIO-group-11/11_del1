@@ -15,11 +15,11 @@ public class Main {
   public static void main(String[] args) {
     System.out.print("\033[H\033[2J");
     System.out.flush();
-    System.out.println("to Roll the Dice type:\"" + ROLL_COMMAND + "\"");
-    System.out.println("\n".repeat(8));
+    System.out.println("to Roll the Dice type:\"" + ROLL_COMMAND + "\"\n");
+    prettyPrint();
     while(true){
-      System.out.println("\r\033[9Acurrent player: " + g() +(currentPlayer ? "1" : "2") + reset());
-      System.out.print("        \r");
+      lineUp(8);
+      System.out.println("current player: " + g() +(currentPlayer ? "1" : "2") + reset());
       awaitRoll();
       cup.roll();
       if(currentPlayer){
@@ -43,7 +43,7 @@ public class Main {
       }
       prettyPrint();
       if((currentPlayer ? p1 : p2) && Die1 == Die2 ){
-        System.out.println("player " + (currentPlayer ? "1" : "2") + " wins!");
+        System.out.println("player " + g(currentPlayer ? "1" : "2") + p(" wins!"));
         break;
       }
       if((currentPlayer ? player1 : player2) >= 40){
@@ -70,25 +70,35 @@ public class Main {
   }
   private static void awaitRoll(){
     while (true){
+      System.out.print("enter command: ");
       String in = scan.nextLine();
+      lineUp(1);
+      System.out.print(" ".repeat(in.length()) + "\r");
       if(in.equals(ROLL_COMMAND)){
         return;
-      }else if(in.equals(EXIT_COMMAND)){
-        System.out.println("\n".repeat(10));
-        System.exit(0);
-      }else{
-        System.out.print("\033[1A" + " ".repeat(in.length()) + "\r");
       }
     }
   }
   private static void prettyPrint(){
-    System.out.println(reset() + "Player " + g() + 1 + reset() + " (" + b() + player1 + "/40 " + p() + "point" + reset() + ")");
-    System.out.println(reset() + "Player " + g() + 2 + reset() + " (" + b() + player2 + "/40 " + p() + "point" + reset() + ")\n");
-    System.out.println("Roll:");
-    System.out.println("Dice " + b() + "1" + p() +":  " + g() + cup.getSides()[0] + reset());
-    System.out.println("Dice " + b() + "2" + p() +":  " + g() + cup.getSides()[1] + reset());
+    System.out.println(reset());
+    if(!p1 && player1 < 40){
+      System.out.println("Player " + g("1:") + " (" + b((player1<10 ? "0" + player1 : player1) + "/40 ") + p("point") + ") " + r(currentPlayer ? " <-" : "   "));
+    }else{
+      System.out.println("Player " + g("1:") + " (" + b("40/40") + ")" + p(" Ready to WIN!") + r(currentPlayer ? " <-" : "   "));
+    }
+    if(!p2 && player2 < 40){
+      System.out.println("Player " + g("2:") + " (" + b((player2<10 ? "0" + player2 : player2) + "/40 ") + p("point") + ") " + r(currentPlayer ? "   " : " <-"));
+    }else{
+      System.out.println("Player " + g("2:") + " (" + b("40/40") + ")" + p(" Ready to WIN!" + r(currentPlayer ? "   " : " <-")));
+    }
+    System.out.println("Rolls:");
+    System.out.println("  Die " + g("1:  ") + b((cup.getSides()[0] > 0 ? "" + cup.getSides()[0] : "")));
+    System.out.println("  Die " + g("2:  ") + b((cup.getSides()[0] > 0 ? "" + cup.getSides()[1] : "")));
     int sum = cup.getSides()[0] + cup.getSides()[1];
-    System.out.println("Sum of Dice: " + g() + sum + reset() + " ");
+    System.out.println("Sum of Dice: " + b((sum > 0 ? sum + " " : "")));
+  }
+  private static String g(String text){
+    return g() + text + reset();
   }
   private static String g(){
     return "\u001b[32m";
@@ -96,13 +106,29 @@ public class Main {
   private static String reset(){
     return "\u001b[0m";
   }
+    private static String b(String text){
+    return b() + text + reset();
+  }
   private static String b(){
     return "\u001b[34m";
+  }
+  private static String p(String text){
+    return p() + text + reset();
   }
   private static String p(){
     return "\u001b[35m";
   }
+  private static String r(String text){
+    return r() + text + reset();
+  }
+  private static String r(){
+    return "\u001b[31m";
+  }
   public static RaffleCup getCup() {
     return cup;
+  }
+  public static String lineUp(int count){
+    System.out.print("\r\033[" + count + "A\r");
+    return "";
   }
 }

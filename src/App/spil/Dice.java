@@ -2,7 +2,7 @@ package App.spil;
 
 public class Dice {
   private int sides;
-  private int activeSide = 1;
+  private int activeSide = -1;
   public Dice(int sides){
     this.sides = sides;
   }
