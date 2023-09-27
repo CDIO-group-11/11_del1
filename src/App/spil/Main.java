@@ -75,9 +75,11 @@ public class Main {
       System.out.print("enter command: ");
       String in = scan.nextLine();
       lineUp(1);
-      System.out.print(" ".repeat(in.length()) + "\r");
+      System.out.print("enter command: " + " ".repeat(in.length()) + "\r");
       if(in.equals(ROLL_COMMAND)){
         return;
+      }else if(in.equals(EXIT_COMMAND)){
+        System.exit(0);
       }
     }
   }
@@ -210,7 +212,7 @@ public class Main {
       case 3:
       return p(text);
       case 4:
-      return c(text);//cyan
+      return c(text);
       case 5:
       return y(text);
       default:
