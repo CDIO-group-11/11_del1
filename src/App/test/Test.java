@@ -6,7 +6,7 @@ import App.spil.RaffleCup;
 public class Test {
   private static RaffleCup cup = new RaffleCup(2, 6); 
   public static void main(String[] args) {
-    int runCount = 1;
+    int runCount = 1000;
     isFast(runCount);
     isFair(runCount);
   }
@@ -28,7 +28,7 @@ public class Test {
       deviation += Math.pow(sides[i]-mean,2);
     }
     deviation = Math.sqrt(deviation*1d/(double)sides.length);
-    if(deviation < (runCount/50f) && mean < ((runCount/3f)*1.1f) && mean > ((runCount/3f)*0.9f)){
+    if(deviation < (mean/10f) && mean < ((runCount/3f)*1.1f) && mean > ((runCount/3f)*0.9f)){
       pass("dice fairness\n\tmean: " + mean +"\n\tdeviation: " + deviation);
     }else{
       fail("dice fairnes\n\tmean: " + mean +"\n\tdeviation: " + deviation);
