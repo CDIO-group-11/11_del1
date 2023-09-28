@@ -250,7 +250,7 @@ public class Main {
           }
           if(run){
             String out = "player " + win + " wins!";
-            if(i == TUI[j].length-1 && j < out.length() && TUI[j][i] == ' '){
+            if(i == TUI[j].length-1 && j < out.length() && TUI[j][i] == ' '){//prints who won at the bottom
               if(j == 7){
                 System.out.print(g());
               }else if(j > 7){
