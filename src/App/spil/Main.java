@@ -207,6 +207,11 @@ public class Main {
   private static String y(){
     return "\u001b[38;5;220m";
   }
+  /**
+   * moves the console cursor up by the specified amount
+   * @param count the number of lines you wish to move up
+   * @return empty string, allows it to be  ussed inside System.out.print()
+   */
   public static String lineUp(int count){
     System.out.print("\r\033[" + count + "A\r");
     return "";
