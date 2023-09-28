@@ -41,7 +41,6 @@ public class Main {
           player2 = 0;
         }
       }
-      prettyPrint();
       if((currentPlayer ? p1 : p2) && Die1 == Die2 ){
         System.out.println("player " + g(currentPlayer ? "1" : "2") + p(" wins!"));
         break;
@@ -53,19 +52,20 @@ public class Main {
           p2=true;
         }
       }
-      if(cup.getSides()[0] != cup.getSides()[1]) {
-      currentPlayer = !currentPlayer;
-      }
       if (cup.getSides()[0] == 6 && cup.getSides()[1] == 6){
         if (last_roll_2x6 == 1) {
           System.out.println("player " + currentPlayer + " wins!");
           break;            
         }
-          last_roll_2x6 = 1;
+        last_roll_2x6 = 1;
       }
       else {
         last_roll_2x6 = 0;
       }
+      if(cup.getSides()[0] != cup.getSides()[1]) {
+        currentPlayer = !currentPlayer;
+      }
+      prettyPrint();
     }
     finish();
     System.out.println("player " + g(currentPlayer ? "1" : "2") + p(" wins!"));
