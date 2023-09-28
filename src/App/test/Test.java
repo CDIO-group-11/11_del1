@@ -6,7 +6,7 @@ import App.spil.RaffleCup;
 public class Test {
   private static RaffleCup cup = new RaffleCup(2, 6); 
   public static void main(String[] args) {
-    int runCount = 1;
+    int runCount = 1000;
     isFast(runCount);
     isFair(runCount);
   }
