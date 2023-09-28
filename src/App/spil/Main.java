@@ -83,7 +83,7 @@ public class Main {
       }
     }
   }
-  private static void prettyPrint(){
+  public static void prettyPrint(){
     System.out.println(reset());
     if(!p1 && player1 < 40){
       System.out.println("Player " + g("1:") + " (" + b((player1<10 ? "0" + player1 : player1) + "/40 ") + p("point") + ") " + r(currentPlayer ? " <-" : "   "));
