@@ -2,7 +2,7 @@ package App.spil;
 
 public class Dice {
   private int sides; //the higest number on the die
-  private int activeSide = 1; // the  current number on the dice
+  private int activeSide = -1; // the  current number on the dice
   /**
    * @param sides the maximum number on the die
    */
