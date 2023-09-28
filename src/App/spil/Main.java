@@ -18,7 +18,7 @@ public class Main {
     System.out.flush();
     //tells user how to play
     System.out.println("to Roll the Dice type:\"" + ROLL_COMMAND + "\"\n");
-    //removes creates TUI
+    //creates TUI
     prettyPrint();
     while(true){
       //prints curent player and moves the console cursor  up to the top
@@ -47,8 +47,7 @@ public class Main {
           player2 = 0;
         }
       }
-      prettyPrint(); //prints score card
-
+      
       //win condition 
       //must have reached 40 and to equakl dice
       if((currentPlayer ? p1 : p2) && cup.getSides()[0] == cup.getSides()[1] ){
@@ -67,20 +66,19 @@ public class Main {
 
       //decide if player gets another turn 
       //if dice not equal
-      if(cup.getSides()[0] != cup.getSides()[1])
       if(cup.getSides()[0] != cup.getSides()[1]) {
-      currentPlayer = !currentPlayer;
+        currentPlayer = !currentPlayer;
       }
       if (cup.getSides()[0] == 6 && cup.getSides()[1] == 6){
         if (last_roll_2x6 == 1) {
           System.out.println("player " + currentPlayer + " wins!");
           break;            
         }
-          last_roll_2x6 = 1;
-      }
-      else {
+        last_roll_2x6 = 1;
+      }else {
         last_roll_2x6 = 0;
       }
+      prettyPrint(); //prints score card
     }
     finish();
     System.out.println("player " + g(currentPlayer ? "1" : "2") + p(" wins!"));
@@ -215,6 +213,9 @@ public class Main {
     System.out.print("\r\033[" + count + "A\r");
     return "";
   }
+  /**
+   * prints some random characters on the screen when gam is finished
+   */
   private static void finish(){
     int max;
     {
