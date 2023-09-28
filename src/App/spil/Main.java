@@ -52,7 +52,7 @@ public class Main {
       //win condition 
       //must have reached 40 and to equakl dice
       prettyPrint();
-      if((currentPlayer ? p1 : p2) && Die1 == Die2 ){
+      if((currentPlayer ? p1 : p2) && cup.getSides()[0] == cup.getSides()[1] ){
         System.out.println("player " + g(currentPlayer ? "1" : "2") + p(" wins!"));
         break;
       }
