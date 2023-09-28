@@ -13,15 +13,24 @@ public class Main {
   private static boolean p1,p2;
   private static int last_roll_2x6 = 0; //0 = last roll not two six, 1= last roll two six
   public static void main(String[] args) {
+    //clears console
     System.out.print("\033[H\033[2J");
     System.out.flush();
+    //tells user how to play
     System.out.println("to Roll the Dice type:\"" + ROLL_COMMAND + "\"\n");
+    //removes creates TUI
     prettyPrint();
     while(true){
+      //prints curent player and moves the console cursor  up to the top
       lineUp(8);
       System.out.println("current player: " + g() +(currentPlayer ? "1" : "2") + reset());
+      System.out.print("        \r");
+      
+      //waits and then rolls
       awaitRoll();
       cup.roll();
+      
+      //adds dice to points
       if(currentPlayer){
         player1 += cup.getSides()[0];
         player1 += cup.getSides()[1];
@@ -29,23 +38,26 @@ public class Main {
         player2 += cup.getSides()[0];
         player2 += cup.getSides()[1];
       }
-
-      RaffleCup cup = Main.getCup();
-      int Die1 = cup.getSides()[0];
-      int Die2 = cup.getSides()[1];
       
-      if (Die1 == 1 && Die2 == 1){
+      //see if player rolled 2x one
+      if (cup.getSides()[0] == 1 && cup.getSides()[1] == 1){
         if(currentPlayer){
           player1 = 0;
         }else{
           player2 = 0;
         }
       }
+      prettyPrint(); //prints score card
+
+      //win condition 
+      //must have reached 40 and to equakl dice
       prettyPrint();
       if((currentPlayer ? p1 : p2) && Die1 == Die2 ){
         System.out.println("player " + g(currentPlayer ? "1" : "2") + p(" wins!"));
         break;
       }
+
+      //allow victory by recording if score is at least 40
       if((currentPlayer ? player1 : player2) >= 40){
         if(currentPlayer){
           p1=true;
@@ -53,6 +65,10 @@ public class Main {
           p2=true;
         }
       }
+
+      //decide if player gets another turn 
+      //if dice not equal
+      if(cup.getSides()[0] != cup.getSides()[1])
       if(cup.getSides()[0] != cup.getSides()[1]) {
       currentPlayer = !currentPlayer;
       }
@@ -71,7 +87,7 @@ public class Main {
     System.out.println("player " + g(currentPlayer ? "1" : "2") + p(" wins!"));
   }
   private static void awaitRoll(){
-    while (true){
+    while (true){//escapes if player gives correct input
       System.out.print("enter command: ");
       String in = scan.nextLine();
       lineUp(1);
@@ -85,28 +101,40 @@ public class Main {
   }
   public static void prettyPrint(){
     System.out.println(reset());
+    //prints  player 1 points
     if(!p1 && player1 < 40){
       System.out.println("Player " + g("1:") + " (" + b((player1<10 ? "0" + player1 : player1) + "/40 ") + p("point") + ") " + r(currentPlayer ? " <-" : "   "));
     }else{
       System.out.println("Player " + g("1:") + " (" + b("40/40") + ")" + p(" Ready to WIN!") + r(currentPlayer ? " <-" : "   "));
     }
+    //prints player 2 points
     if(!p2 && player2 < 40){
       System.out.println("Player " + g("2:") + " (" + b((player2<10 ? "0" + player2 : player2) + "/40 ") + p("point") + ") " + r(currentPlayer ? "   " : " <-"));
     }else{
       System.out.println("Player " + g("2:") + " (" + b("40/40") + ")" + p(" Ready to WIN!" + r(currentPlayer ? "   " : " <-")));
     }
     System.out.println("Rolls:");
+    //prints the number on dice 1
     System.out.println("  Die " + g("1:  ") + b((cup.getSides()[0] > 0 ? "" + cup.getSides()[0] : "")));
+    //prints the number on dice 2
     System.out.println("  Die " + g("2:  ") + b((cup.getSides()[0] > 0 ? "" + cup.getSides()[1] : "")));
+    //finds the sum of sides
     int sum = cup.getSides()[0] + cup.getSides()[1];
+    //prints sum of sides
     System.out.println("Sum of Dice: " + b((sum > 0 ? sum + " " : "")));
   }
   private static String g(String text){
     return g() + text + reset();
   }
+  /**
+   * @return the ansi value that changes console text color to green
+   */
   private static String g(){
     return "\u001b[32m";
   }
+    /**
+   * @return the ansi value that resets the color of text in the console
+   */
   private static String reset(){
     return "\u001b[0m";
   }
