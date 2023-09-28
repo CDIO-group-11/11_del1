@@ -5,6 +5,12 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "executable",
+      "type": "PowerShell",
+      "request": "launch",
+      "script": "${workspaceFolder}/run.bat",
+    },
+    {
       "type": "java",
       "name": "test",
       "request": "launch",
