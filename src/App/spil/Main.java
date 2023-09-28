@@ -69,7 +69,7 @@ public class Main {
       }
     }
   }
-  private static void prettyPrint(){
+  public static void prettyPrint(){
     System.out.println(reset() + "Player " + g() + 1 + reset() + " (" + b() + player1 + "/40 " + p() + "point" + reset() + ")");
     System.out.println(reset() + "Player " + g() + 2 + reset() + " (" + b() + player2 + "/40 " + p() + "point" + reset() + ")\n");
     System.out.println("Roll:");
