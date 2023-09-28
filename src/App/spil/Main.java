@@ -3,7 +3,7 @@ package App.spil;
 import java.util.Scanner;
 
 public class Main {
-  final private static String ROLL_COMMAND = "roll";
+  final private static String ROLL_COMMAND = "";
   final private static String EXIT_COMMAND = "exit";
   private static Scanner scan = new Scanner(System.in);
   private static int player1 = 0;
@@ -18,7 +18,7 @@ public class Main {
     System.out.flush();
     //tells user how to play
     System.out.println("to Roll the Dice type:\"" + ROLL_COMMAND + "\"\n");
-    //removes creates TUI
+    //creates TUI
     prettyPrint();
     while(true){
       //prints curent player and moves the console cursor  up to the top
@@ -47,12 +47,11 @@ public class Main {
           player2 = 0;
         }
       }
-      prettyPrint(); //prints score card
-
+      
       //win condition 
       //must have reached 40 and to equakl dice
-      prettyPrint();
-      if((currentPlayer ? p1 : p2) && Die1 == Die2 ){
+      if((currentPlayer ? p1 : p2) && cup.getSides()[0] == cup.getSides()[1] ){
+        prettyPrint(); //prints score card
         System.out.println("player " + g(currentPlayer ? "1" : "2") + p(" wins!"));
         break;
       }
@@ -68,23 +67,21 @@ public class Main {
 
       //decide if player gets another turn 
       //if dice not equal
-      if(cup.getSides()[0] != cup.getSides()[1])
       if(cup.getSides()[0] != cup.getSides()[1]) {
-      currentPlayer = !currentPlayer;
+        currentPlayer = !currentPlayer;
       }
       if (cup.getSides()[0] == 6 && cup.getSides()[1] == 6){
         if (last_roll_2x6 == 1) {
-          System.out.println("player " + currentPlayer + " wins!");
+          System.out.println("player " +  g(currentPlayer ? "1" : "2") + " wins!");
           break;            
         }
-          last_roll_2x6 = 1;
-      }
-      else {
+        last_roll_2x6 = 1;
+      }else {
         last_roll_2x6 = 0;
       }
+      prettyPrint(); //prints score card
     }
-    finish();
-    System.out.println("player " + g(currentPlayer ? "1" : "2") + p(" wins!"));
+    finish(currentPlayer ? '1' : '2');
   }
   private static void awaitRoll(){
     while (true){//escapes if player gives correct input
@@ -123,113 +120,175 @@ public class Main {
     //prints sum of sides
     System.out.println("Sum of Dice: " + b((sum > 0 ? sum + " " : "")));
   }
+  private static String reset(){
+    return "\u001b[0m";
+  }
+  /**
+   * @param text
+   * @return returns text but green
+   */
   private static String g(String text){
     return g() + text + reset();
   }
   /**
-   * @return the ansi value that changes console text color to green
+   * @return returns text that makes all text after it green
    */
   private static String g(){
     return "\u001b[32m";
   }
-    /**
-   * @return the ansi value that resets the color of text in the console
+  /**
+   * @return returns text that makes all text after it default
    */
-  private static String reset(){
-    return "\u001b[0m";
-  }
+  /**
+   * @param text
+   * @return returns text but blue
+   */
     private static String b(String text){
     return b() + text + reset();
   }
+  /**
+   * @return returns text that makes all text after it blue
+   */
   private static String b(){
     return "\u001b[34m";
   }
+  /**
+   * @param text
+   * @return returns text but purple
+   */
   private static String p(String text){
     return p() + text + reset();
   }
+  /**
+   * @return returns text that makes all text after it purple
+   */
   private static String p(){
     return "\u001b[35m";
   }
+  /**
+   * @param text
+   * @return returns text but red
+   */
   private static String r(String text){
     return r() + text + reset();
   }
+  /**
+   * @return returns text that makes all text after it red
+   */
   private static String r(){
     return "\u001b[31m";
   }
-  public static RaffleCup getCup() {
-    return cup;
-  }
+    /**
+   * @param text
+   * @return returns text but cyan
+   */
   private static String c(String text){
     return c() + text + reset();
   }
+  /**
+   * @return returns text that makes all text after it cyan
+   */
   private static String c(){
     return "\u001b[36m";
   }
+  /**
+   * @param text
+   * @return returns text but yellow
+   */
   private static String y(String text){
     return y() + text + reset();
   }
+  /**
+   * @return returns text that makes all text after it yellow
+   */
   private static String y(){
     return "\u001b[38;5;220m";
   }
+  /**
+   * moves the console cursor up by the specified amount
+   * @param count the number of lines you wish to move up
+   * @return empty string, allows it to be  ussed inside System.out.print()
+   */
   public static String lineUp(int count){
     System.out.print("\r\033[" + count + "A\r");
     return "";
   }
-  private static void finish(){
+  /**
+   * prints some random characters on the screen when gam is finished
+   */
+  private static void finish(char win){
+    //contains the length of the longest text line
     int max;
     {
       int staticMax = 34;
       int changeMax = 24 + ROLL_COMMAND.length();
       max = Math.max(staticMax,changeMax);
     }
-    char[][] TUI = new char[max][11];
-    int turn = 0;
-    int space;
+    char[][] TUI = new char[max][11];//contains all changed characters
+    int turn = 0;//the number of passes that have been made  across the  screen
     while(true){
-      space = 0;
-      lineUp(11);
-      for (int i = 0; i < TUI[0].length; i++) {
-        for (int j = 0; j < TUI.length; j++) {
-          if(Math.random() < 0.04) try {
+      int space = 0; //antalet af mellemrum
+      lineUp(11);//moves the cursor to top of screen
+      for (int i = 0; i < TUI[0].length; i++) {//loops left to right
+        for (int j = 0; j < TUI.length; j++) {//loops top to bottom
+          /*
+          chance to wait 
+          waiting more makes speed more consistence between computers
+          waiting too much makes the animation slow making the user not want to wait
+          */
+          if(Math.random() < 0.04) try { 
             Thread.sleep(0,1);
           } catch (InterruptedException ignore) {}
           
-          boolean run = Math.random() < (float)turn/1000f;
-          if(TUI[j][i] != 32 && run){
-            if(Math.random() < (float)turn/2000f){
+          boolean run = Math.random() < (float)turn/1000f;//should this char change
+          if(TUI[j][i] != 32 && run){//don't change spaces
+            if(Math.random() < (float)turn/2000f){ //increased chance of space
               TUI[j][i] = 32;
             }else{
               TUI[j][i] = randChar();
             }
           }
           if(run){
-            System.out.print(randCol(TUI[j][i]+""));
+            String out = "player " + win + " wins!";
+            if(i == TUI[j].length-1 && j < out.length() && TUI[j][i] == ' '){//prints who won at the bottom
+              if(j == 7){
+                System.out.print(g());
+              }else if(j > 7){
+                System.out.print(p());
+              }
+              System.out.print(out.charAt(j));
+              System.out.print(reset());
+            }else{//prints a random char
+              System.out.print(randCol(TUI[j][i] + ""));//print the char in a random color
+            }
           }else{
-            System.out.print("\033[1C");
+            System.out.print("\033[1C");//skip this char if it didn't change
           }
-          if(TUI[j][i] == 32){
+          if(TUI[j][i] == 32){//incriment if this was a space
             space++;
           }
         }
-        System.out.println();
+        System.out.println();//next line
       }
       turn++;
+      /* 
+      check if there are enough spaces to force spces
+      this has to be low enough  for the user not to notice
+      */
       if(space > (TUI.length * TUI[0].length * (372f/374f))){
         break;
       }
     }
-    lineUp(11);
-    for (int i = 0; i < TUI[0].length; i++) {
-      for (int j = 0; j < TUI.length; j++) {
-        System.out.print(" ");
-      }
-      System.out.println();
+    lineUp(11);//cleans terminal from all random chars
+    for (int i = 0; i < TUI[0].length-1; i++) {
+      System.out.println(" ".repeat(max));
     }
+    System.out.println("player " + g(win + " ") + "wins!" + " ".repeat(max-14));//makes sure the winner is still writen after clean
   }
-  private static char randChar(){
+  private static char randChar(){//generates a random char (sorts out special chars of value <32)
     return (char) ((Math.random() * 95) + 32);
   }
-  private static String randCol(String text){
+  private static String randCol(String text){//chooses a random color with a higher chance of no color
     switch((int)(Math.random()*15)){
       case 0:
       return r(text);
