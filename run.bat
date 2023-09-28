@@ -1,4 +1,5 @@
 @echo off
-cd src
-echo to roll the dice type: "ROLL"
-java ./App/spil/Main.java
+javac -sourcepath ./src/ -d ./bin/ ./src/App/spil/Main.java
+cd bin
+java App/spil/Main
+cd ..
