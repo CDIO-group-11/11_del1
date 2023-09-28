@@ -73,13 +73,13 @@ public class Main {
       }else {
         last_roll_2x6 = 0;
       }
+      if(cup.getSides()[0] != cup.getSides()[1]) {
+        currentPlayer = !currentPlayer;
+      }
       prettyPrint(); //prints score card
     }
     //decide if player gets another turn 
     //if dice not equal
-    if(cup.getSides()[0] != cup.getSides()[1]) {
-      currentPlayer = !currentPlayer;
-    }
     finish(currentPlayer ? '1' : '2');
   }
   private static void awaitRoll(){
