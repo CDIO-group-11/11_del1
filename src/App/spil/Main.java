@@ -3,7 +3,7 @@ package App.spil;
 import java.util.Scanner;
 
 public class Main {
-  final private static String ROLL_COMMAND = "roll";
+  final private static String ROLL_COMMAND = "";
   final private static String EXIT_COMMAND = "exit";
   private static Scanner scan = new Scanner(System.in);
   private static int player1 = 0;
@@ -51,7 +51,7 @@ public class Main {
       //win condition 
       //must have reached 40 and to equakl dice
       if((currentPlayer ? p1 : p2) && cup.getSides()[0] == cup.getSides()[1] ){
-      prettyPrint(); //prints score card
+        prettyPrint(); //prints score card
         System.out.println("player " + g(currentPlayer ? "1" : "2") + p(" wins!"));
         break;
       }
@@ -72,7 +72,7 @@ public class Main {
       }
       if (cup.getSides()[0] == 6 && cup.getSides()[1] == 6){
         if (last_roll_2x6 == 1) {
-          System.out.println("player " + currentPlayer + " wins!");
+          System.out.println("player " +  g(currentPlayer ? "1" : "2") + " wins!");
           break;            
         }
         last_roll_2x6 = 1;
@@ -81,8 +81,7 @@ public class Main {
       }
       prettyPrint(); //prints score card
     }
-    finish();
-    System.out.println("player " + g(currentPlayer ? "1" : "2") + p(" wins!"));
+    finish(currentPlayer ? '1' : '2');
   }
   private static void awaitRoll(){
     while (true){//escapes if player gives correct input
@@ -217,56 +216,77 @@ public class Main {
   /**
    * prints some random characters on the screen when gam is finished
    */
-  private static void finish(){
+  private static void finish(char win){
+    //contains the length of the longest text line
     int max;
     {
       int staticMax = 34;
       int changeMax = 24 + ROLL_COMMAND.length();
       max = Math.max(staticMax,changeMax);
     }
-    char[][] TUI = new char[max][11];
-    int turn = 0;
-    int space;
+    char[][] TUI = new char[max][11];//contains all changed characters
+    int turn = 0;//the number of passes that have been made  across the  screen
     while(true){
-      space = 0;
-      lineUp(11);
-      for (int i = 0; i < TUI[0].length; i++) {
-        for (int j = 0; j < TUI.length; j++) {
-          if(Math.random() < 0.04) try {
+      int space = 0; //antalet af mellemrum
+      lineUp(11);//moves the cursor to top of screen
+      for (int i = 0; i < TUI[0].length; i++) {//loops left to right
+        for (int j = 0; j < TUI.length; j++) {//loops top to bottom
+          /*
+          chance to wait 
+          waiting more makes speed more consistence between computers
+          waiting too much makes the animation slow making the user not want to wait
+          */
+          if(Math.random() < 0.04) try { 
             Thread.sleep(0,1);
           } catch (InterruptedException ignore) {}
           
-          boolean run = Math.random() < (float)turn/1000f;
-          if(TUI[j][i] != 32 && run){
-            if(Math.random() < (float)turn/2000f){
+          boolean run = Math.random() < (float)turn/1000f;//should this char change
+          if(TUI[j][i] != 32 && run){//don't change spaces
+            if(Math.random() < (float)turn/2000f){ //increased chance of space
               TUI[j][i] = 32;
             }else{
               TUI[j][i] = randChar();
             }
           }
           if(run){
-            System.out.print(randCol(TUI[j][i]+""));
+            String out = "player " + win + " wins!";
+            if(i == TUI[j].length-1 && j < out.length() && TUI[j][i] == ' '){
+              if(j == 7){
+                System.out.print(g());
+              }else if(j > 7){
+                System.out.print(p());
+              }
+              System.out.print(out.charAt(j));
+              System.out.print(reset());
+            }else{
+              System.out.print(randCol(TUI[j][i] + ""));//print the char in a random color
+            }
           }else{
-            System.out.print("\033[1C");
+            System.out.print("\033[1C");//skip this char if it didn't change
           }
-          if(TUI[j][i] == 32){
+          if(TUI[j][i] == 32){//incriment if this was a space
             space++;
           }
         }
-        System.out.println();
+        System.out.println();//next line
       }
       turn++;
+      /* 
+      check if there are enough spaces to force spces
+      this has to be low enough  for the user not to notice
+      */
       if(space > (TUI.length * TUI[0].length * (372f/374f))){
         break;
       }
     }
     lineUp(11);
-    for (int i = 0; i < TUI[0].length; i++) {
+    for (int i = 0; i < TUI[0].length-1; i++) {
       for (int j = 0; j < TUI.length; j++) {
         System.out.print(" ");
       }
       System.out.println();
     }
+    System.out.println("player " + g(win + " ") + "wins!" + " ".repeat(10));
   }
   private static char randChar(){
     return (char) ((Math.random() * 95) + 32);
