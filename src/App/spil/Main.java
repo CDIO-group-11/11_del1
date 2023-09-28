@@ -123,6 +123,9 @@ public class Main {
     //prints sum of sides
     System.out.println("Sum of Dice: " + b((sum > 0 ? sum + " " : "")));
   }
+  private static String reset(){
+    return "\u001b[0m";
+  }
   /**
    * @param text
    * @return returns text but green
@@ -139,9 +142,6 @@ public class Main {
   /**
    * @return returns text that makes all text after it default
    */
-  private static String reset(){
-    return "\u001b[0m";
-  }
   /**
    * @param text
    * @return returns text but blue
