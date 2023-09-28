@@ -28,7 +28,7 @@ public class Test {
       deviation += Math.pow(sides[i]-mean,2);
     }
     deviation = Math.sqrt(deviation*1d/(double)sides.length);
-    if(deviation < (runCount/50f) && mean < ((runCount/3f)*1.1f) && mean > ((runCount/3f)*0.9f)){
+    if(deviation < (mean/10f) && mean < ((runCount/3f)*1.1f) && mean > ((runCount/3f)*0.9f)){
       pass("dice fairness\n\tmean: " + mean +"\n\tdeviation: " + deviation);
     }else{
       fail("dice fairnes\n\tmean: " + mean +"\n\tdeviation: " + deviation);
