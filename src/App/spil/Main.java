@@ -156,9 +156,6 @@ public class Main {
   private static String r(){
     return "\u001b[31m";
   }
-  public static RaffleCup getCup() {
-    return cup;
-  }
   private static String c(String text){
     return c() + text + reset();
   }
