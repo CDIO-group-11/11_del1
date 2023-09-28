@@ -258,7 +258,7 @@ public class Main {
               }
               System.out.print(out.charAt(j));
               System.out.print(reset());
-            }else{
+            }else{//prints a random char
               System.out.print(randCol(TUI[j][i] + ""));//print the char in a random color
             }
           }else{
@@ -279,19 +279,16 @@ public class Main {
         break;
       }
     }
-    lineUp(11);
+    lineUp(11);//cleans terminal from all random chars
     for (int i = 0; i < TUI[0].length-1; i++) {
-      for (int j = 0; j < TUI.length; j++) {
-        System.out.print(" ");
-      }
-      System.out.println();
+      System.out.println(" ".repeat(max));
     }
-    System.out.println("player " + g(win + " ") + "wins!" + " ".repeat(10));
+    System.out.println("player " + g(win + " ") + "wins!" + " ".repeat(max-14));//makes sure the winner is still writen after clean
   }
-  private static char randChar(){
+  private static char randChar(){//generates a random char (sorts out special chars of value <32)
     return (char) ((Math.random() * 95) + 32);
   }
-  private static String randCol(String text){
+  private static String randCol(String text){//chooses a random color with a higher chance of no color
     switch((int)(Math.random()*15)){
       case 0:
       return r(text);
