@@ -64,12 +64,6 @@ public class Main {
           p2=true;
         }
       }
-
-      //decide if player gets another turn 
-      //if dice not equal
-      if(cup.getSides()[0] != cup.getSides()[1]) {
-        currentPlayer = !currentPlayer;
-      }
       if (cup.getSides()[0] == 6 && cup.getSides()[1] == 6){
         if (last_roll_2x6 == 1) {
           System.out.println("player " +  g(currentPlayer ? "1" : "2") + " wins!");
@@ -80,6 +74,11 @@ public class Main {
         last_roll_2x6 = 0;
       }
       prettyPrint(); //prints score card
+    }
+    //decide if player gets another turn 
+    //if dice not equal
+    if(cup.getSides()[0] != cup.getSides()[1]) {
+      currentPlayer = !currentPlayer;
     }
     finish(currentPlayer ? '1' : '2');
   }
