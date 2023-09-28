@@ -123,48 +123,87 @@ public class Main {
     //prints sum of sides
     System.out.println("Sum of Dice: " + b((sum > 0 ? sum + " " : "")));
   }
+  /**
+   * @param text
+   * @return returns text but green
+   */
   private static String g(String text){
     return g() + text + reset();
   }
   /**
-   * @return the ansi value that changes console text color to green
+   * @return returns text that makes all text after it green
    */
   private static String g(){
     return "\u001b[32m";
   }
-    /**
-   * @return the ansi value that resets the color of text in the console
+  /**
+   * @return returns text that makes all text after it default
    */
   private static String reset(){
     return "\u001b[0m";
   }
+  /**
+   * @param text
+   * @return returns text but blue
+   */
     private static String b(String text){
     return b() + text + reset();
   }
+  /**
+   * @return returns text that makes all text after it blue
+   */
   private static String b(){
     return "\u001b[34m";
   }
+  /**
+   * @param text
+   * @return returns text but purple
+   */
   private static String p(String text){
     return p() + text + reset();
   }
+  /**
+   * @return returns text that makes all text after it purple
+   */
   private static String p(){
     return "\u001b[35m";
   }
+  /**
+   * @param text
+   * @return returns text but red
+   */
   private static String r(String text){
     return r() + text + reset();
   }
+  /**
+   * @return returns text that makes all text after it red
+   */
   private static String r(){
     return "\u001b[31m";
   }
+    /**
+   * @param text
+   * @return returns text but cyan
+   */
   private static String c(String text){
     return c() + text + reset();
   }
+  /**
+   * @return returns text that makes all text after it cyan
+   */
   private static String c(){
     return "\u001b[36m";
   }
+  /**
+   * @param text
+   * @return returns text but yellow
+   */
   private static String y(String text){
     return y() + text + reset();
   }
+  /**
+   * @return returns text that makes all text after it yellow
+   */
   private static String y(){
     return "\u001b[38;5;220m";
   }
