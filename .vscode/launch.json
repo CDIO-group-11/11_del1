@@ -5,13 +5,19 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "executable",
+      "type": "PowerShell",
+      "request": "launch",
+      "script": "${workspaceFolder}/run.ps1",
+    },
+    {
       "type": "java",
-      "name": "Initialize",
+      "name": "test",
       "request": "launch",
       "mainClass": "App.test.Test",
     },{
       "type": "java",
-      "name": "Initialize",
+      "name": "play",
       "request": "launch",
       "mainClass": "App.spil.Main",
     }
