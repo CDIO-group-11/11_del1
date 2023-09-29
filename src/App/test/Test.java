@@ -36,16 +36,18 @@ public class Test {
   }
   private static void isFast(int runCount) {
     RaffleCup cup = new RaffleCup(2, 6);
+    int i = 0;
+    long end = 0;
     long start = System.currentTimeMillis();
-    for (int i = 0; i < runCount; i++) {
+    while (i < runCount) {
       cup.roll();
       cup.getSides();
       Main.prettyPrint();
-      System.out.print("\r\033[10A");
+      System.out.print("\r\033[7A");
+      i++;
     }
-    System.out.print("\033[H\033[2J");
-    System.out.flush();
-    long end = System.currentTimeMillis();
+    end = System.currentTimeMillis();
+    System.out.print("\n".repeat(10));
     String out = "dice speed, per throw\n\ttime taken " + ((double)(end-start)/(double)runCount) + "ms\n\tallowed: " + (333f+1f/3f) + "ms";
     if((end-start)/runCount < (333f + 1f/3f)){
       pass(out);
