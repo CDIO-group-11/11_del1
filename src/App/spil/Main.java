@@ -12,7 +12,11 @@ public class Main {
   private static boolean currentPlayer = true;//true == 1
   private static boolean p1,p2;
   private static int last_roll_2x6 = 0; //0 = last roll not two six, 1= last roll two six
+  private static boolean noCol = false;
   public static void main(String[] args) {
+    if(args.length > 0 && args[0].equals("noCol")){
+      noCol = true;
+    }
     //clears console
     System.out.print("\033[H\033[2J");
     System.out.flush();
@@ -120,6 +124,7 @@ public class Main {
     System.out.println("Sum of Dice: " + b((sum > 0 ? sum + " " : "")));
   }
   private static String reset(){
+    if(noCol) return "";
     return "\u001b[0m";
   }
   /**
@@ -133,6 +138,7 @@ public class Main {
    * @return returns text that makes all text after it green
    */
   private static String g(){
+    if(noCol) return "";
     return "\u001b[32m";
   }
   /**
@@ -149,6 +155,7 @@ public class Main {
    * @return returns text that makes all text after it blue
    */
   private static String b(){
+    if(noCol) return "";
     return "\u001b[34m";
   }
   /**
@@ -162,6 +169,7 @@ public class Main {
    * @return returns text that makes all text after it purple
    */
   private static String p(){
+    if(noCol) return "";
     return "\u001b[35m";
   }
   /**
@@ -175,6 +183,7 @@ public class Main {
    * @return returns text that makes all text after it red
    */
   private static String r(){
+    if(noCol) return "";
     return "\u001b[31m";
   }
     /**
@@ -188,6 +197,7 @@ public class Main {
    * @return returns text that makes all text after it cyan
    */
   private static String c(){
+    if(noCol) return "";
     return "\u001b[36m";
   }
   /**
@@ -201,6 +211,7 @@ public class Main {
    * @return returns text that makes all text after it yellow
    */
   private static String y(){
+    if(noCol) return "";
     return "\u001b[38;5;220m";
   }
   /**
@@ -209,6 +220,10 @@ public class Main {
    * @return empty string, allows it to be  ussed inside System.out.print()
    */
   public static String lineUp(int count){
+    if(noCol){
+      System.out.flush();
+      return "";
+    }
     System.out.print("\r\033[" + count + "A\r");
     return "";
   }
@@ -216,6 +231,9 @@ public class Main {
    * prints some random characters on the screen when gam is finished
    */
   private static void finish(char win){
+    if(noCol){
+      return;
+    }
     //contains the length of the longest text line
     int max;
     {
@@ -261,6 +279,7 @@ public class Main {
               System.out.print(randCol(TUI[j][i] + ""));//print the char in a random color
             }
           }else{
+            
             System.out.print("\033[1C");//skip this char if it didn't change
           }
           if(TUI[j][i] == 32){//incriment if this was a space
