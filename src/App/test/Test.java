@@ -47,10 +47,11 @@ public class Test {
     System.out.print("\033[H\033[2J");
     System.out.flush();
     long end = System.currentTimeMillis();
-    if(end-start < 333.333f*runCount){
-      pass("dice speed\n\ttime taken: " + (end-start) + "ms\n\tallowed: " + (333.333f*runCount) + "ms");
+    String out = "dice speed\n\ttime taken: " + ((double)(end-start)/(double)runCount) + "ms\n\tallowed: " + 333.333f + "ms";
+    if((end-start)/runCount < 333.333f){
+      pass(out);
     }else{
-      fail("dice speed\n\ttime taken: " + (end-start) + "ms\n\tallowed: " + (333.333f*runCount) + "ms");
+      fail(out);
     }
   }
   private static void pass(String test){
