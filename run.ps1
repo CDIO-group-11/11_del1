@@ -1,4 +1,6 @@
 javac -sourcepath ./src/ -d ./bin/ ./src/App/spil/Main.java
-cd bin
+Pause
+Set-Location bin
+Pause
 java App/spil/Main
 Pause
