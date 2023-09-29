@@ -46,8 +46,8 @@ public class Test {
     System.out.print("\033[H\033[2J");
     System.out.flush();
     long end = System.currentTimeMillis();
-    String out = "dice speed, per throw\n\ttime taken " + ((double)(end-start)/(double)runCount) + "ms\n\tallowed: " + 333.333f + "ms";
-    if((end-start)/runCount < 333.333f){
+    String out = "dice speed, per throw\n\ttime taken " + ((double)(end-start)/(double)runCount) + "ms\n\tallowed: " + (333f+1f/3f) + "ms";
+    if((end-start)/runCount < (333f + 1f/3f)){
       pass(out);
     }else{
       fail(out);
