@@ -8,7 +8,7 @@
       "name": "executable",
       "type": "PowerShell",
       "request": "launch",
-      "script": "${workspaceFolder}/run.bat",
+      "script": "${workspaceFolder}/run.ps1",
     },
     {
       "type": "java",
