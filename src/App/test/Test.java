@@ -63,7 +63,7 @@ public class Test {
     }
     end = System.currentTimeMillis();
     System.out.print("\n".repeat(10));
-    String out = "dice speed, per throw\n\ttime taken " + ((double)(end-start)/(double)runCount) + "ms\n\tallowed: " + (333f+1f/3f) + "ms";
+    String out = "dice speed\n\ttime taken " + (double)(end-start) + "ms\n\tallowed: " + ((333d+1d/3d)*runCount) + "ms";
     if((end-start)/runCount < (333f + 1f/3f)){
       pass(out);
     }else{
