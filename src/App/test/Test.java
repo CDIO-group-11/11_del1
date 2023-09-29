@@ -20,15 +20,15 @@ public class Test {
     }
     double mean = 0;
     for (int i = 0; i < sides.length; i++) {
-      mean += sides[i];
+      mean += sides[i] * (i+1);
     }
-    mean /= (double)sides.length;
+    mean /= (double)(runCount*2);
     double deviation = 0;
     for (int i = 0; i < sides.length; i++) {
-      deviation += Math.pow(sides[i]-mean,2);
+      deviation += Math.pow(i-mean,2)*sides[i];
     }
-    deviation = Math.sqrt(deviation*1d/(double)sides.length);
-    if(deviation < (mean/10f) && mean < ((runCount/3f)*1.1f) && mean > ((runCount/3f)*0.9f)){
+    deviation = Math.sqrt(deviation*1d/(double)(runCount*2));
+    if(deviation < (mean/10f) && mean < (3.5f*1.1f) && mean > (3.5f*0.9f)){
       pass("dice fairness\n\tmean: " + mean +"\n\tdeviation: " + deviation);
     }else{
       fail("dice fairnes\n\tmean: " + mean +"\n\tdeviation: " + deviation);
