@@ -43,7 +43,6 @@ public class Test {
       Main.prettyPrint();
       System.out.print("\r\033[10A");
     }
-    System.out.println("\n".repeat(3));
     System.out.print("\033[H\033[2J");
     System.out.flush();
     long end = System.currentTimeMillis();
