@@ -39,9 +39,10 @@ public class Test {
     );
     String out = "dice fairness\n\tmean: " + mean + "\n\tdeviation: " + deviation;
     if(
-      deviation < (fairDeviation * 1.1f) && 
-      mean < (fairMean) * 1.1f && 
-      mean > (fairMean) / 1.1f
+      deviation < (fairDeviation * 1.1d) &&
+      deviation > (fairDeviation / 1.1d) && 
+      mean < (fairMean) * 1.1d && 
+      mean > (fairMean) / 1.1d
     ){
       pass(out);
     }else{
