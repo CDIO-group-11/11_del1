@@ -20,37 +20,54 @@ public class Test {
     }
     double mean = 0;
     for (int i = 0; i < sides.length; i++) {
-      mean += sides[i];
+      mean += sides[i] * (i+1);
     }
-    mean /= (double)sides.length;
+    mean /= (double)(runCount*2);
     double deviation = 0;
     for (int i = 0; i < sides.length; i++) {
-      deviation += Math.pow(sides[i]-mean,2);
+      deviation += Math.pow((i+1)-mean,2)*sides[i];
     }
-    deviation = Math.sqrt(deviation*1d/(double)sides.length);
-    if(deviation < (mean/10f) && mean < ((runCount/3f)*1.1f) && mean > ((runCount/3f)*0.9f)){
-      pass("dice fairness\n\tmean: " + mean +"\n\tdeviation: " + deviation);
+    deviation = Math.sqrt(deviation / (double)(runCount * 2));
+    double fairMean = (double)(1 + 2 + 3 + 4 + 5 + 6) / 6d;
+    double fairDeviation = Math.sqrt(
+      Math.pow(1 - mean, 2) * (1d / 6d)+
+      Math.pow(2 - mean, 2) * (1d / 6d)+
+      Math.pow(3 - mean, 2) * (1d / 6d)+
+      Math.pow(4 - mean, 2) * (1d / 6d)+
+      Math.pow(5 - mean, 2) * (1d / 6d)+
+      Math.pow(6 - mean, 2) * (1d / 6d)
+    );
+    String out = "dice fairness\n\tmean: " + mean + "\n\tdeviation: " + deviation;
+    if(
+      deviation < (fairDeviation * 1.1d) &&
+      deviation > (fairDeviation / 1.1d) && 
+      mean < (fairMean) * 1.1d && 
+      mean > (fairMean) / 1.1d
+    ){
+      pass(out);
     }else{
-      fail("dice fairnes\n\tmean: " + mean +"\n\tdeviation: " + deviation);
+      fail(out);
     }
   }
   private static void isFast(int runCount) {
     RaffleCup cup = new RaffleCup(2, 6);
+    int i = 0;
+    long end = 0;
     long start = System.currentTimeMillis();
-    for (int i = 0; i < runCount; i++) {
+    while (i < runCount) {
       cup.roll();
       cup.getSides();
       Main.prettyPrint();
-      System.out.print("\r\033[10A");
+      System.out.print("\r\033[7A");
+      i++;
     }
-    System.out.println("\n".repeat(3));
-    System.out.print("\033[H\033[2J");
-    System.out.flush();
-    long end = System.currentTimeMillis();
-    if(end-start < 333.333f*runCount){
-      pass("dice speed\n\ttime taken: " + (end-start) + "ms\n\tallowed: " + (333.333f*runCount) + "ms");
+    end = System.currentTimeMillis();
+    System.out.print("\n".repeat(10));
+    String out = "dice speed\n\ttime taken " + (double)(end-start) + "ms\n\tallowed: " + ((333d+1d/3d)*runCount) + "ms";
+    if((end-start)/runCount < (333f + 1f/3f)){
+      pass(out);
     }else{
-      fail("dice speed\n\ttime taken: " + (end-start) + "ms\n\tallowed: " + (333.333f*runCount) + "ms");
+      fail(out);
     }
   }
   private static void pass(String test){
