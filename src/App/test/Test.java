@@ -27,24 +27,25 @@ public class Test {
     for (int i = 0; i < sides.length; i++) {
       deviation += Math.pow((i+1)-mean,2)*sides[i];
     }
-    deviation = Math.sqrt(deviation/(double)(runCount*2));
-    double fairMean = (double)(1+2+3+4+5+6)/6d;
+    deviation = Math.sqrt(deviation / (double)(runCount * 2));
+    double fairMean = (double)(1 + 2 + 3 + 4 + 5 + 6) / 6d;
     double fairDeviation = Math.sqrt(
-      Math.pow(1-mean,2)*1d/6d+
-      Math.pow(2-mean,2)*1d/6d+
-      Math.pow(3-mean,2)*1d/6d+
-      Math.pow(4-mean,2)*1d/6d+
-      Math.pow(5-mean,2)*1d/6d+
-      Math.pow(6-mean,2)*1d/6d
+      Math.pow(1 - mean, 2) * (1d / 6d)+
+      Math.pow(2 - mean, 2) * (1d / 6d)+
+      Math.pow(3 - mean, 2) * (1d / 6d)+
+      Math.pow(4 - mean, 2) * (1d / 6d)+
+      Math.pow(5 - mean, 2) * (1d / 6d)+
+      Math.pow(6 - mean, 2) * (1d / 6d)
     );
+    String out = "dice fairness\n\tmean: " + mean + "\n\tdeviation: " + deviation;
     if(
-      deviation < (fairDeviation*1.1f) && 
-      mean < (fairMean)*1.1f && 
-      mean > (fairMean)*0.9f
+      deviation < (fairDeviation * 1.1f) && 
+      mean < (fairMean) * 1.1f && 
+      mean > (fairMean) / 1.1f
     ){
-      pass("dice fairness\n\tmean: " + mean +"\n\tdeviation: " + deviation);
+      pass(out);
     }else{
-      fail("dice fairnes\n\tmean: " + mean +"\n\tdeviation: " + deviation);
+      fail(out);
     }
   }
   private static void isFast(int runCount) {
